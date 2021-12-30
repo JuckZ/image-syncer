@@ -1,11 +1,11 @@
 name: "同步镜像"
 on:
   workflow_dispatch:
-    inputs:
-      willRun:
-        description: "是否开始同步镜像？yes/no"
-        default: "yes"
-        required: true
+#     inputs:
+#       willRun:
+#         description: "是否开始同步镜像？yes/no"
+#         default: "yes"
+#         required: true
 jobs:
   sync-images:
     runs-on: ubuntu-latest
@@ -13,11 +13,14 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
     - name: "安装image-syncer工具"
+      env:
+        CONFIG: ${{ secrets.CONFIG }}
       run: |
-        wget -c https://github.com/AliyunContainerService/image-syncer/releases/download/v1.3.1/image-syncer-v1.3.1-linux-amd64.tar.gz -O - | tar -xz
-        echo "输入内容为 ${{ github.event.inputs.willRun }}"
+        # wget -c https://github.com/AliyunContainerService/image-syncer/releases/download/v1.3.1/image-syncer-v1.3.1-linux-amd64.tar.gz -O - | tar -xz
+        # echo "输入内容为 ${{ github.event.inputs.willRun }}"
+        echo "$CONFIG"
     - name: "运行image-syncer"
-      run: ./image-syncer -h
+      run: ./image-syncer --h
     - name: "结果"
       run: |
         echo "====0：成功 其他：失败====="
