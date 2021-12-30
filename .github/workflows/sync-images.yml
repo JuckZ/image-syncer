@@ -12,12 +12,16 @@ jobs:
       run: |
         wget -c https://github.com/AliyunContainerService/image-syncer/releases/download/v1.3.1/image-syncer-v1.3.1-linux-amd64.tar.gz -O - | tar -xz
         echo "========配置文件内容========="
-        echo "$CONFIG"
+        echo "$CONFIG" > config.yaml
+        echo "=======cat 查看配置文件内容========="
+        cat config.yaml
     - name: "运行image-syncer"
       run: ./image-syncer -h
-    - name: "结果"
+    - name: "运行结果"
       run: |
-        echo "====0：成功 其他：失败====="
-        echo "完成，返回结果为：$?"
-        
-    
+        if [ $? -eq 0 ]; then
+            echo "succeed"
+        else
+            echo "failed"
+        fi
+      
