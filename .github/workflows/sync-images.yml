@@ -16,7 +16,7 @@ jobs:
         echo "=======cat 查看配置文件内容========="
         cat config.yaml
     - name: "运行image-syncer"
-      run: ./image-syncer -c config.yaml
+      run: ./image-syncer --config config.yaml
     - name: "运行结果"
       run: |
         if [ $? -eq 0 ]; then
