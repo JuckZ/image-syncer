@@ -4,3 +4,4 @@ auth:
     password: xxx
 images:
   k8s.gcr.io/ingress-nginx/controller:v1.1.0: registry.cn-shenzhen.aliyuncs.com/ingress-nginx/controller
+  airdock/oraclejdk:1.8: registry.cn-shenzhen.aliyuncs.com/zodance/oraclejdk:1.8
