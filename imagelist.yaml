@@ -1,6 +1,8 @@
 images:
-  registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.8.0: registry.cn-shenzhen.aliyuncs.com/icool/k8s.kube-state-metrics.kube-state-metrics:v2.8.0
+  docker.io/headscale/headscale:alpine-latest: registry.cn-hangzhou.aliyuncs.com/icool/headscale:alpine-latest
+  docker.io/fredliang/derper:latest: registry.cn-hangzhou.aliyuncs.com/icool/derper:latest
 historyRecord:
+  registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.8.0: registry.cn-shenzhen.aliyuncs.com/icool/k8s.kube-state-metrics.kube-state-metrics:v2.8.0
   quay.io/jetstack/cert-manager-controller:v1.10.0: registry.cn-shenzhen.aliyuncs.com/icool/quay.cert-manager.cert-manager-controller:v1.10.0
   quay.io/jetstack/cert-manager-webhook:v1.10.0: registry.cn-shenzhen.aliyuncs.com/icool/quay.cert-manager.cert-manager-webhook:v1.10.0
   quay.io/jetstack/cert-manager-cainjector:v1.10.0: registry.cn-shenzhen.aliyuncs.com/icool/quay.cert-manager.cert-manager-cainjector:v1.10.0
