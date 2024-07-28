@@ -1,5 +1,5 @@
 images:
-  docker.io/headscale/headscale:alpine-latest: registry.cn-hangzhou.aliyuncs.com/icool/headscale_headscale:alpine-latest
+  docker.io/headscale/headscale:latest-alpine: registry.cn-hangzhou.aliyuncs.com/icool/headscale_headscale:latest-alpine
   docker.io/fredliang/derper:latest: registry.cn-hangzhou.aliyuncs.com/icool/fredliang_derper:latest
 historyRecord:
   registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.8.0: registry.cn-shenzhen.aliyuncs.com/icool/k8s.kube-state-metrics.kube-state-metrics:v2.8.0
