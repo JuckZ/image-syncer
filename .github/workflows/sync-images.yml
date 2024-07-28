@@ -16,9 +16,8 @@ jobs:
       env:
         CONFIG: ${{ secrets.CONFIG }}
       run: |
-        wget -c https://github.com/AliyunContainerService/image-syncer/releases/download/v1.3.1/image-syncer-v1.3.1-linux-amd64.tar.gz -O - | tar -xz
+        wget -c https://github.com/AliyunContainerService/image-syncer/releases/download/v1.5.5/image-syncer-v1.5.5-linux-amd64.tar.gz -O - | tar -xz
         echo "$CONFIG" > config.yaml
         cat imagelist.yaml >> config.yaml
-        cat config.yaml
     - name: "run image-syncer"
       run: ./image-syncer --config config.yaml
