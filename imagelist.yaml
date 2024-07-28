@@ -1,6 +1,6 @@
 images:
   docker.io/headscale/headscale:v0.23.0-beta1-debug: registry.cn-hangzhou.aliyuncs.com/icool/headscale_headscale:v0.23.0-beta1-debug
-  docker.io/caddy:2.8.4-alpine registry.cn-hangzhou.aliyuncs.com/icool/caddy:2.8.4-alpine
+  docker.io/caddy:2.8.4-alpine: registry.cn-hangzhou.aliyuncs.com/icool/caddy:2.8.4-alpine
 historyRecord:
   docker.io/headscale/headscale:v0.23.0-beta1: registry.cn-hangzhou.aliyuncs.com/icool/headscale_headscale:v0.23.0-beta1
   docker.io/headscale/headscale:latest-alpine: registry.cn-hangzhou.aliyuncs.com/icool/headscale_headscale:latest-alpine
