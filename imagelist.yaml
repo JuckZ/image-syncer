@@ -1,24 +1,11 @@
+# Image mapping file used by .github/workflows/sync-images.yml.
+# Format:
+#   source-registry/namespace/image:tag: target-registry/namespace/image:tag
+# Keep only the images you want to synchronize in the `images` section.
 images:
-  docker.io/headscale/headscale:v0.23.0-beta1-debug: registry.cn-hangzhou.aliyuncs.com/icool/headscale_headscale:v0.23.0-beta1-debug
-  docker.io/caddy:2.8.4-alpine: registry.cn-hangzhou.aliyuncs.com/icool/caddy:2.8.4-alpine
-historyRecord:
-  docker.io/headscale/headscale:v0.23.0-beta1: registry.cn-hangzhou.aliyuncs.com/icool/headscale_headscale:v0.23.0-beta1
-  docker.io/headscale/headscale:latest-alpine: registry.cn-hangzhou.aliyuncs.com/icool/headscale_headscale:latest-alpine
-  docker.io/fredliang/derper:latest: registry.cn-hangzhou.aliyuncs.com/icool/fredliang_derper:latest
-  registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.8.0: registry.cn-shenzhen.aliyuncs.com/icool/k8s.kube-state-metrics.kube-state-metrics:v2.8.0
-  quay.io/jetstack/cert-manager-controller:v1.10.0: registry.cn-shenzhen.aliyuncs.com/icool/quay.cert-manager.cert-manager-controller:v1.10.0
-  quay.io/jetstack/cert-manager-webhook:v1.10.0: registry.cn-shenzhen.aliyuncs.com/icool/quay.cert-manager.cert-manager-webhook:v1.10.0
-  quay.io/jetstack/cert-manager-cainjector:v1.10.0: registry.cn-shenzhen.aliyuncs.com/icool/quay.cert-manager.cert-manager-cainjector:v1.10.0
-  quay.io/jetstack/cert-manager-ctl:v1.10.0: registry.cn-shenzhen.aliyuncs.com/icool/quay.cert-manager.cert-manager-ctl:v1.10.0
-  rancher/mirrored-pause:3.6: registry.cn-shenzhen.aliyuncs.com/icool/rancher.mirrored-pause:3.6
-  k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.3.0: registry.cn-hangzhou.aliyuncs.com/icool/gcr.csi-node-driver-registrar:v2.3.0
-  k8s.gcr.io/sig-storage/csi-resizer:v1.2.0: registry.cn-hangzhou.aliyuncs.com/icool/gcr.csi-resizer:v1.2.0
-  k8s.gcr.io/sig-storage/csi-snapshotter:v3.0.3: registry.cn-hangzhou.aliyuncs.com/icool/gcr.csi-snapshotter:v3.0.3
-  k8s.gcr.io/sig-storage/csi-attacher:v3.1.0: registry.cn-hangzhou.aliyuncs.com/icool/gcr.csi-attacher:v3.1.0
-  k8s.gcr.io/sig-storage/snapshot-controller:v3.0.3: registry.cn-hangzhou.aliyuncs.com/icool/gcr.snapshot-controller:v3.0.3
-  k8s.gcr.io/sig-storage/csi-provisioner:v3.0.0: registry.cn-hangzhou.aliyuncs.com/icool/gcr.csi-provisioner:v3.0.0
-  registry.k8s.io/ingress-nginx/kube-webhook-certgen:v20220916-gd32f8c343: registry.cn-shenzhen.aliyuncs.com/icool/k8s.ingress-nginx.kube-webhook-certgen:v20220916-gd32f8c343
-  registry.k8s.io/ingress-nginx/controller:v1.4.0: registry.cn-shenzhen.aliyuncs.com/icool/k8s.ingress-nginx.controller:v1.4.0
-  registry.k8s.io/defaultbackend-amd64:1.5: registry.cn-shenzhen.aliyuncs.com/icool/k8s.ingress-nginx.defaultbackend-amd64:1.5
-  registry.k8s.io/ingress-nginx/kube-webhook-certgen:v20220916-gd32f8c343: registry.cn-shenzhen.aliyuncs.com/icool/k8s.ingress-nginx.kube-webhook-certgen:v20220916-gd32f8c343
-  registry.k8s.io/ingress-nginx/controller:v1.5.1: registry.cn-shenzhen.aliyuncs.com/icool/k8s.ingress-nginx.controller:v1.5.1
+  docker.io/library/nginx:1.27-alpine: registry.example.com/mirror/nginx:1.27-alpine
+  quay.io/prometheus/node-exporter:v1.8.2: registry.example.com/mirror/prometheus-node-exporter:v1.8.2
+
+# Optional archive for mappings that are no longer synchronized.
+# Move entries here instead of deleting them if you want a lightweight audit trail.
+historyRecord: {}

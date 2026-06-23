@@ -1,23 +1,98 @@
-name: "sync image"
+name: Sync container images
+
 on:
   workflow_dispatch:
+    inputs:
+      image_list_path:
+        description: Path to the image mapping file
+        required: false
+        default: imagelist.yaml
+      config_secret_name:
+        description: GitHub secret name that stores image-syncer auth/config YAML
+        required: false
+        default: CONFIG
+      image_syncer_version:
+        description: image-syncer release version to download
+        required: false
+        default: v1.5.5
+      dry_run:
+        description: Print the generated config without running image-syncer
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
   push:
     branches:
       - master
+      - main
     paths:
-      - 'imagelist.yaml'
+      - imagelist.yaml
+      - example/config.yaml
+      - .github/workflows/sync-images.yml
+
+permissions:
+  contents: read
+
 jobs:
   sync-images:
+    name: Sync images
     runs-on: ubuntu-latest
+    env:
+      IMAGE_LIST_PATH: ${{ github.event.inputs.image_list_path || 'imagelist.yaml' }}
+      CONFIG_SECRET_NAME: ${{ github.event.inputs.config_secret_name || 'CONFIG' }}
+      IMAGE_SYNCER_VERSION: ${{ github.event.inputs.image_syncer_version || 'v1.5.5' }}
+      DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+      CONFIG_CONTENT: ${{ secrets[inputs.config_secret_name || 'CONFIG'] }}
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-    - name: "install image-syncer"
-      env:
-        CONFIG: ${{ secrets.CONFIG }}
-      run: |
-        wget -c https://github.com/AliyunContainerService/image-syncer/releases/download/v1.5.5/image-syncer-v1.5.5-linux-amd64.tar.gz -O - | tar -xz
-        echo "$CONFIG" > config.yaml
-        cat imagelist.yaml >> config.yaml
-    - name: "run image-syncer"
-      run: ./image-syncer --config config.yaml
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "${CONFIG_CONTENT}" ]]; then
+            echo "Secret '${CONFIG_SECRET_NAME}' is empty or missing. Create it in Settings > Secrets and variables > Actions." >&2
+            exit 1
+          fi
+          if [[ ! -f "${IMAGE_LIST_PATH}" ]]; then
+            echo "Image list '${IMAGE_LIST_PATH}' does not exist." >&2
+            exit 1
+          fi
+
+      - name: Install image-syncer
+        shell: bash
+        run: |
+          set -euo pipefail
+          archive="image-syncer-${IMAGE_SYNCER_VERSION}-linux-amd64.tar.gz"
+          url="https://github.com/AliyunContainerService/image-syncer/releases/download/${IMAGE_SYNCER_VERSION}/${archive}"
+          curl --fail --location --retry 3 --show-error --silent "${url}" | tar -xz
+          ./image-syncer --help >/dev/null
+
+      - name: Build image-syncer config
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf '%s\n' "${CONFIG_CONTENT}" > config.yaml
+          printf '\n' >> config.yaml
+          cat "${IMAGE_LIST_PATH}" >> config.yaml
+
+      - name: Run image-syncer
+        if: env.DRY_RUN != 'true'
+        shell: bash
+        run: ./image-syncer --config config.yaml
+
+      - name: Print generated config summary
+        if: env.DRY_RUN == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "Dry run enabled. Generated config keys:"
+          python3 - <<'PY'
+          from pathlib import Path
+          for line in Path('config.yaml').read_text(encoding='utf-8').splitlines():
+              if line and not line.startswith((' ', '#')) and ':' in line:
+                  print(f"- {line.split(':', 1)[0]}")
+          PY
