@@ -1,4 +1,10 @@
+# Store this file's content in a GitHub Actions secret, for example CONFIG.
+# Do not commit real credentials.
 auth:
-  registry.cn-shenzhen.aliyuncs.com:
-    username: xxxx
-    password: xxxx
+  registry.example.com:
+    username: your-username
+    password: your-password
+
+# Optional image-syncer settings can be added here when needed, for example:
+# retries: 3
+# proc: 6
